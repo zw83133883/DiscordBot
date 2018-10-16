@@ -1,0 +1,30 @@
+{
+  "name": "discord-bot",
+  "version": "1.0.0",
+  "description": "Command Generator",
+  "main": "Bot.js",
+  "dependencies": {
+    "auth": "0.0.9",
+    "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
+    "js-tokens": "^4.0.0",
+    "token": "^0.1.0",
+    "winston": "^3.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "Hello World"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zw83133883/DiscordBot.git"
+  },
+  "keywords": [
+    "DiscordBot"
+  ],
+  "author": "Wei Zhang, Alex Patel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zw83133883/DiscordBot/issues"
+  },
+  "homepage": "https://github.com/zw83133883/DiscordBot#readme"
+}
