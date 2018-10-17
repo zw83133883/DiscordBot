@@ -1,24 +1,12 @@
-var Discord = require('discord.io');
-var logger = require('winston');
-var auth = require('./auth.json');
+const Discord = require('discord.js');
+const client = new Discord.Client();
+const auth = require('./auth.json');
 
-// Configure logger settings
-logger.remove(logger.transports.Console);
-logger.add(new logger.transports.Console, {
-    colorize: true
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
 });
-logger.level = 'debug';
-// Initialize Discord Bot
-var bot = new Discord.Client({
-   token: auth.token,
-   autorun: true
-});
-bot.on('ready', function (evt) {
-    logger.info('Connected');
-    logger.info('Logged in as: ');
-    logger.info(bot.username + ' - (' + bot.id + ')');
-});
-bot.on('message', function (user, userID, channelID, message, evt) {
+
+cilent.on('message', function (user, userID, channelID, message, evt) {
     // Our bot needs to know if it will execute a command
     // It will listen for messages that will start with `!`
     if (message.substring(0, 1) == '!') {
@@ -29,32 +17,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         var ans = toUpper(cmd);
 
         cilent.on(cmd, ()=> {
-            console.log('Ready to take input:');
+            message.channelID('Ready to take input:');
         })
 
-        /*if(ans == 'CREATE'){
-            bot.sendMessage({
-                to: channelID,
-                message:'Enter a desired command name: '
-            })
-        }
-        else
-            bot.sendMessage({
-                to: channelID,
-                message: 'Type !help for further assist.'
-            })
-       /* switch(cmd) {
-            // !ping
-            case 'ping':
-                bot.sendMessage({
-                    to: channelID,
-                    message: 'Pong!'
-                });
-            break;
-            // Just add any case commands if you want to..
-            }
-        */}
-});
-function toUpper(cmd){
-    return cmd.toUpperCase();
-}
+client.login(auth.token)
