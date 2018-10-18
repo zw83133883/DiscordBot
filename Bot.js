@@ -1,23 +1,47 @@
+
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const auth = require('./auth.json');
+const config = require('./config.json');
+const request = require("request");
+const url = "http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true";
+const ytdl = require("ytdl-core");
+const fs = require("fs");
+const getYoutubeID = require("get-youtube-id");
+const fetchVideoInfo = require("youtube-info");
+const prefix = config.prefix;
 
-client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
+
+
+client.on("ready", () => {
+  console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`); 
+  client.user.setActivity(`Serving ${client.guilds.size} servers`);
+});
+client.on("guildCreate", guild => {
+  console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
+  client.user.setActivity(`Serving ${client.guilds.size} servers`);
+});
+client.on("guildDelete", guild => {
+  console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
+  client.user.setActivity(`Serving ${client.guilds.size} servers`);
 });
 
-cilent.on('message', function (user, userID, channelID, message, evt) {
-    // Our bot needs to know if it will execute a command
-    // It will listen for messages that will start with `!`
-    if (message.substring(0, 1) == '!') {
-        var args = message.substring(1).split(' ');
-        var cmd = args[0];
-        args = args.splice(1);
 
-        var ans = toUpper(cmd);
+client.on("message", message =>{
+  const mess = message.content.toLowerCase();
+  const member = message.member;
+  const args = message.content.split(' ').slice(1).join(' ');
 
-        cilent.on(cmd, ()=> {
-            message.channelID('Ready to take input:');
-        })
+  if(mess.startsWith(prefix+"shiba")){
+    request(url,function(error,response,body){
+      var data = JSON.parse(body);
+      message.channel.send("Shiba Inu",{file:data[0]});
+    })
+  }
+})
 
-client.login(auth.token)
+
+
+
+
+
+client.login(config.token);
